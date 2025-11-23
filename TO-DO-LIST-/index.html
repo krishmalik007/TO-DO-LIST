@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>To-Do List — Grey-Teal (Professional)</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="todolist.css">
+  <style>
+    /* small extra styles for new sections to blend with your theme */
+    .hero-illustration {
+      width: 120px;
+      height: 120px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(3,8,10,0.5);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .features .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));
+      border: 1px solid rgba(255,255,255,0.02);
+      box-shadow: 0 8px 18px rgba(3,8,10,0.45);
+      color: var(--muted);
+    }
+    .stats .stat {
+      text-align: center;
+      padding: 16px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));
+      border: 1px solid rgba(255,255,255,0.02);
+      box-shadow: var(--shadow-subtle);
+    }
+    .category-pill {
+      display:inline-block;
+      margin:6px 6px 6px 0;
+      padding:8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size: 0.9rem;
+    }
+    /* small responsive tweak so the hero CTA isn't too tall on small screens */
+    @media (max-width: 575px) {
+      .hero-illustration { width: 90px; height: 90px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV (unchanged structure) -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TO-DO</a>
+
+      <div class="d-flex align-items-center ms-auto d-lg-none">
+        <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <button id="mobile-search-toggle" class="btn icon-btn mobile-search" type="button" aria-label="Open search">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <form class="navbar-search mx-auto d-flex d-none d-lg-flex" role="search" onsubmit="return false;">
+          <input id="search-input" class="form-control search-input" type="search" placeholder="Search tasks..." aria-label="Search">
+          <button id="search-btn" class="btn icon-btn" type="button" aria-label="Search"><i class="fa fa-search"></i></button>
+        </form>
+
+        <ul class="navbar-nav ms-auto nav-links">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="contactuspage.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="loginpage.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- mobile search bar (toggled) -->
+  <div id="mobile-search-bar" class="mobile-search-bar">
+    <div class="container">
+      <div class="mobile-search-row">
+        <input id="mobile-search-input" class="form-control" type="search" placeholder="Search tasks..." aria-label="Mobile search">
+        <button id="mobile-search-go" class="btn icon-btn" type="button" aria-label="Search"><i class="fa fa-search"></i></button>
+        <button id="mobile-search-close" class="btn btn-close-mobile" aria-label="Close search">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="page container">
+    <!-- HERO -->
+    <section class="hero-section">
+      <div class="hero-panel d-flex flex-column flex-md-row align-items-center gap-3">
+        <div class="flex-grow-1">
+          <h1 class="hero-title">Stay focused. Get things done.</h1>
+          <p style="color:var(--muted); max-width:740px;">
+            A lightweight, distraction-free to-do app built for focus. Add tasks, organize into categories, and track progress — fast.
+          </p>
+
+          <div class="d-flex gap-2 align-items-center mt-3">
+            <a href="#task-list" class="btn btn-accent"><i class="fa fa-plus"></i> Add Task</a>
+            <a href="#recent-tasks" class="btn" style="background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--muted)">View Recent</a>
+          </div>
+
+          <div class="mt-4 stats d-flex gap-3 flex-wrap">
+            <div class="stat">
+              <div style="font-size:1.35rem; color:var(--text-strong)" id="stat-total">0</div>
+              <div style="font-size:0.85rem; color:var(--muted)">Total tasks</div>
+            </div>
+            <div class="stat">
+              <div style="font-size:1.35rem; color:var(--text-strong)" id="stat-recent">0</div>
+              <div style="font-size:0.85rem; color:var(--muted)">Recent (7d)</div>
+            </div>
+            <div class="stat">
+              <div style="font-size:1.35rem; color:var(--text-strong)" id="stat-categories">0</div>
+              <div style="font-size:0.85rem; color:var(--muted)">Categories</div>
+            </div>
+          </div>
+        </div>
+
+      
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features my-4">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card p-3 h-100">
+            <div class="d-flex align-items-start gap-3">
+              <div class="fs-3" style="color:var(--accent-teal)"><i class="fa fa-bolt"></i></div>
+              <div>
+                <h5 style="color:var(--text-strong)">Fast & Simple</h5>
+                <p style="margin:0; color:var(--muted)">Add tasks quickly and keep your focus with a minimal interface.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card p-3 h-100">
+            <div class="d-flex align-items-start gap-3">
+              <div class="fs-3" style="color:var(--accent-2)"><i class="fa fa-folder"></i></div>
+              <div>
+                <h5 style="color:var(--text-strong)">Organize</h5>
+                <p style="margin:0; color:var(--muted)">Group tasks by projects or categories to keep things tidy.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card p-3 h-100">
+            <div class="d-flex align-items-start gap-3">
+              <div class="fs-3" style="color:var(--accent-teal)"><i class="fa fa-check-circle"></i></div>
+              <div>
+                <h5 style="color:var(--text-strong)">Track Progress</h5>
+                <p style="margin:0; color:var(--muted)">See your completed work and keep momentum with quick stats.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- TASK PANEL (original) -->
+    <section class="hero-section">
+      <div class="hero-panel">
+        <h2 class="hero-title">Tasks</h2>
+
+        <div class="task-controls">
+          <input id="new-task" class="task-input" type="text" placeholder="Add a new task" aria-label="New task">
+          <button id="add-task-btn" class="btn-accent" aria-label="Add task"><i class="fa fa-plus"></i> Add</button>
+        </div>
+
+        <ul id="task-list" class="task-list" aria-live="polite" aria-label="Task list"></ul>
+      </div>
+    </section>
+
+    <!-- RECENT TASKS (reads from localStorage) -->
+    <section id="recent-tasks" class="my-4">
+      <h4 style="color:var(--text-strong)">Recent tasks</h4>
+      <div id="recent-list" class="mt-2"></div>
+    </section>
+
+    <!-- CTA -->
+   
+
+  <!-- FOOTER (unchanged) -->
+  <footer class="footer container">
+    <div class="footer-grid">
+      <div class="footer-block">
+        <h5>About</h5>
+        <p>Focused, lightweight to-do app to keep you moving.</p>
+      </div>
+
+      <div class="footer-block">
+        <h5>Links</h5>
+        <ul class="plain-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="contactuspage.html">Contact</a></li>
+         
+        </ul>
+      </div>
+
+      <div class="footer-block">
+        <h5>Contact</h5>
+        <p><i class="fa fa-phone"></i>+91 7811800007</p>
+        <p><i class="fa fa-envelope"></i> krishmalik2698@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>&copy; 2024 To-Do. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="todolist.js"></script>
+
+  <!-- Extra script to populate the "Recent tasks" and stats using the same localStorage key as todolist.js -->
+  <script>
+    (function () {
+      const STORAGE_KEY = 'todo_greyteal_v1';
+
+      function loadTasks(){
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw) return [];
+        try { return JSON.parse(raw); } catch(e){ return []; }
+      }
+
+      function renderRecent(){
+        const all = loadTasks();
+        const recentList = document.getElementById('recent-list');
+        const total = document.getElementById('stat-total');
+        const recent = document.getElementById('stat-recent');
+        const categories = document.getElementById('stat-categories');
+
+        total && (total.textContent = all.length);
+
+        // recent: tasks added in last 7 days (uses createdAt if present)
+        const now = Date.now();
+        const recentTasks = all.filter(t => t.createdAt && (now - t.createdAt) <= 7*24*60*60*1000);
+        recent && (recent.textContent = recentTasks.length);
+
+        // categories = number of unique category values (if any). fallback 0
+        const uniqueCats = new Set(all.map(t => t.category).filter(Boolean));
+        categories && (categories.textContent = uniqueCats.size);
+
+        // show latest 5
+        const latest = all.slice().reverse().slice(0,5);
+        if(!recentList) return;
+        if(latest.length === 0){
+          recentList.innerHTML = '<div style="color:rgba(159,176,173,0.7)">No recent tasks</div>';
+          return;
+        }
+        recentList.innerHTML = '<ul class="plain-list" style="list-style: none; padding-left:0; margin:0;">' +
+          latest.map(t => `<li style="padding:8px 0; border-bottom:1px dashed rgba(255,255,255,0.02); color:var(--muted)">${escapeHtml(t.text)}</li>`).join('') +
+          '</ul>';
+      }
+
+      // escape helper (same as in todolist.js)
+      function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g, (m)=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+      }
+
+      // re-render on load and whenever storage changes (other tabs)
+      document.addEventListener('DOMContentLoaded', renderRecent);
+      window.addEventListener('storage', renderRecent);
+
+      // re-render when tasks are added via the main UI (todolist.js triggers render there)
+      // simple polling to capture changes soon after add (low overhead)
+      let last = JSON.stringify(loadTasks());
+      setInterval(() => {
+        const cur = JSON.stringify(loadTasks());
+        if (cur !== last) { last = cur; renderRecent(); }
+      }, 800);
+
+      // mobile search wiring (keeps behavior: mobile go -> triggers desktop search)
+      const mobileToggle = document.getElementById('mobile-search-toggle');
+      const mobileBar = document.getElementById('mobile-search-bar');
+      const mobileClose = document.getElementById('mobile-search-close');
+      const mobileInput = document.getElementById('mobile-search-input');
+      const mobileGo = document.getElementById('mobile-search-go');
+      const desktopSearch = document.getElementById('search-input');
+      mobileToggle && mobileToggle.addEventListener('click', () => {
+        mobileBar.classList.toggle('visible');
+        if (mobileBar.classList.contains('visible')) mobileInput.focus();
+      });
+      mobileClose && mobileClose.addEventListener('click', () => mobileBar.classList.remove('visible'));
+      mobileGo && mobileGo.addEventListener('click', () => {
+        if (desktopSearch) {
+          desktopSearch.value = mobileInput.value;
+          document.getElementById('search-btn')?.click();
+        }
+        mobileBar.classList.remove('visible');
+      });
+
+    })();
+  </script>
+</body>
+</html>
