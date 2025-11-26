@@ -60,7 +60,6 @@ h1{ margin:0 0 8px; color:#dfeee9 }
 
 
 <script>
-// Basic client-side login simulation (replace with real auth)
 function loginFormSubmit(e){
 e.preventDefault();
 var email = document.getElementById('loginEmail').value.trim();
@@ -69,10 +68,8 @@ var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 if(!re.test(email)){ alert('Please enter a valid email'); return false; }
 if(pass.length < 6){ alert('Password must be at least 6 characters'); return false; }
 
-
-// Simulate successful login
 alert('Logged in successfully! (demo)');
-// Redirect to app main page (change to your real page)
+
 window.location.href = 'index.html';
 return false;
 }

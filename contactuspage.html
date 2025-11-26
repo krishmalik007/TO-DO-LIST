@@ -96,7 +96,6 @@
             cursor:pointer;
         }
 
-        /* Right section text alignment fix */
         .col p{
             margin: 8px 0;
             color: var(--muted);
@@ -122,8 +121,6 @@
         <p class="lead">Have a question? We'll get back to you shortly.</p>
 
         <div class="grid">
-
-            <!-- LEFT FORM -->
             <div class="col">
                 <form id="contactForm" onsubmit="return validateForm()">
 
@@ -140,7 +137,6 @@
                 </form>
             </div>
 
-            <!-- RIGHT INFO SECTION -->
             <div class="col">
                 <h4>Other ways to reach us</h4>
                 <p><i class="fa fa-map-marker-alt"></i> 158, Palika Vihar, Ambala City</p>
@@ -191,10 +187,9 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
         return;
     }
 
-    // Load existing data
+
     let savedData = JSON.parse(localStorage.getItem("contact_messages") || "[]");
 
-    // Push new entry
     savedData.push({
         name: name,
         email: email,
@@ -202,7 +197,6 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
         date: new Date().toLocaleString()
     });
 
-    // Save back to localStorage
     localStorage.setItem("contact_messages", JSON.stringify(savedData));
 
     alert("Your message was saved!");

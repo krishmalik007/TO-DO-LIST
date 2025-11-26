@@ -5,17 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>To-Do List — Grey-Teal (Professional)</title>
 
-  <!-- Fonts & icons -->
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Bootstrap -->
+ 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Your CSS -->
+
   <link rel="stylesheet" href="todolist.css">
   <style>
-    /* small extra styles for new sections to blend with your theme */
     .hero-illustration {
       width: 120px;
       height: 120px;
@@ -48,14 +47,14 @@
       border:1px solid rgba(255,255,255,0.02);
       font-size: 0.9rem;
     }
-    /* small responsive tweak so the hero CTA isn't too tall on small screens */
+
     @media (max-width: 575px) {
       .hero-illustration { width: 90px; height: 90px; }
     }
   </style>
 </head>
 <body>
-  <!-- NAV (unchanged structure) -->
+
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TO-DO</a>
@@ -86,7 +85,7 @@
     </div>
   </nav>
 
-  <!-- mobile search bar (toggled) -->
+ 
   <div id="mobile-search-bar" class="mobile-search-bar">
     <div class="container">
       <div class="mobile-search-row">
@@ -97,9 +96,9 @@
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
+
   <main class="page container">
-    <!-- HERO -->
+   
     <section class="hero-section">
       <div class="hero-panel d-flex flex-column flex-md-row align-items-center gap-3">
         <div class="flex-grow-1">
@@ -132,7 +131,7 @@
       
     </section>
 
-    <!-- FEATURES -->
+  
     <section class="features my-4">
       <div class="row g-3">
         <div class="col-md-4">
@@ -175,7 +174,7 @@
 
 
 
-    <!-- TASK PANEL (original) -->
+ 
     <section class="hero-section">
       <div class="hero-panel">
         <h2 class="hero-title">Tasks</h2>
@@ -189,16 +188,16 @@
       </div>
     </section>
 
-    <!-- RECENT TASKS (reads from localStorage) -->
+
     <section id="recent-tasks" class="my-4">
       <h4 style="color:var(--text-strong)">Recent tasks</h4>
       <div id="recent-list" class="mt-2"></div>
     </section>
 
-    <!-- CTA -->
+ 
    
 
-  <!-- FOOTER (unchanged) -->
+
   <footer class="footer container">
     <div class="footer-grid">
       <div class="footer-block">
@@ -227,11 +226,10 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="todolist.js"></script>
 
-  <!-- Extra script to populate the "Recent tasks" and stats using the same localStorage key as todolist.js -->
   <script>
     (function () {
       const STORAGE_KEY = 'todo_greyteal_v1';
@@ -251,16 +249,12 @@
 
         total && (total.textContent = all.length);
 
-        // recent: tasks added in last 7 days (uses createdAt if present)
         const now = Date.now();
         const recentTasks = all.filter(t => t.createdAt && (now - t.createdAt) <= 7*24*60*60*1000);
         recent && (recent.textContent = recentTasks.length);
-
-        // categories = number of unique category values (if any). fallback 0
         const uniqueCats = new Set(all.map(t => t.category).filter(Boolean));
         categories && (categories.textContent = uniqueCats.size);
 
-        // show latest 5
         const latest = all.slice().reverse().slice(0,5);
         if(!recentList) return;
         if(latest.length === 0){
@@ -271,25 +265,18 @@
           latest.map(t => `<li style="padding:8px 0; border-bottom:1px dashed rgba(255,255,255,0.02); color:var(--muted)">${escapeHtml(t.text)}</li>`).join('') +
           '</ul>';
       }
-
-      // escape helper (same as in todolist.js)
       function escapeHtml(s){
         return String(s).replace(/[&<>"']/g, (m)=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
       }
 
-      // re-render on load and whenever storage changes (other tabs)
       document.addEventListener('DOMContentLoaded', renderRecent);
       window.addEventListener('storage', renderRecent);
-
-      // re-render when tasks are added via the main UI (todolist.js triggers render there)
-      // simple polling to capture changes soon after add (low overhead)
       let last = JSON.stringify(loadTasks());
       setInterval(() => {
         const cur = JSON.stringify(loadTasks());
         if (cur !== last) { last = cur; renderRecent(); }
       }, 800);
 
-      // mobile search wiring (keeps behavior: mobile go -> triggers desktop search)
       const mobileToggle = document.getElementById('mobile-search-toggle');
       const mobileBar = document.getElementById('mobile-search-bar');
       const mobileClose = document.getElementById('mobile-search-close');

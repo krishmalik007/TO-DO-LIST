@@ -67,9 +67,9 @@
       var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if(!re.test(email)){ alert('Please enter a valid email address'); return false; }
 
-      // Example: Save to localStorage (demo only) - replace with API call in production
+ 
       var users = JSON.parse(localStorage.getItem('td_users')||'[]');
-      // prevent duplicate emails
+     
       if(users.some(u=>u.email.toLowerCase() === email.toLowerCase())){
         alert('An account with this email already exists. Please log in.');
         return false;
@@ -78,7 +78,6 @@
       localStorage.setItem('td_users', JSON.stringify(users));
 
       alert('Signed up successfully');
-      // Redirect to login page after successful signup
       window.location.href = 'index.html';
       return false;
     }
