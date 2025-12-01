@@ -1,10 +1,9 @@
-// Simple To-Do (professional grey-teal) with localStorage + search
 const STORAGE_KEY = 'todo_greyteal_v1';
 const addBtn = document.getElementById('add-task-btn');
 const taskInput = document.getElementById('new-task');
 const taskList = document.getElementById('task-list');
 const searchBtn = document.getElementById('search-btn');
-const searchInput = document.getElementById('search-input'); // This is the desktop search input
+const searchInput = document.getElementById('search-input'); 
 
 function loadTasks(){
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -23,7 +22,6 @@ function renderTasks(tasks){
 
         const left = document.createElement('div');
         left.className = 'text';
-        // Note: The index in splice is correct because we are operating on the reloaded array 'arr'
         left.innerHTML = `<i class="fa fa-list" aria-hidden="true"></i><span>${escapeHtml(t.text)}</span>`;
 
         const btns = document.createElement('div');
@@ -36,10 +34,10 @@ function renderTasks(tasks){
         removeBtn.addEventListener('click', () => {
             if(!confirm('Delete this task?')) return;
             const arr = loadTasks();
-            arr.splice(idx,1); // Correctly removes the item at the index in the current load
+            arr.splice(idx,1); 
             saveTasks(arr);
-            // Re-render the full task list (or the filtered one if search is active)
-            searchTasks(true); // Re-run search/filter to update the list state correctly
+            
+            searchTasks(true);
         });
 
         btns.appendChild(removeBtn);
@@ -78,13 +76,12 @@ function searchTasks(isInternalCall = false){
     renderTasks(filtered);
 }
 
-// events
+
 addBtn && addBtn.addEventListener('click', addTaskFromInput);
 taskInput && taskInput.addEventListener('keydown', (e)=> { if(e.key === 'Enter'){ addTaskFromInput(); e.preventDefault(); }});
 
-// Attach events to search elements
+
 searchBtn && searchBtn.addEventListener('click', () => { searchTasks(); });
 searchInput && searchInput.addEventListener('keydown', (e)=> { if(e.key === 'Enter'){ searchTasks(); e.preventDefault(); }});
 
-// init
 document.addEventListener('DOMContentLoaded', ()=> { renderTasks(loadTasks()); });

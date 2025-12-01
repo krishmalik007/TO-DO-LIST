@@ -75,10 +75,9 @@ body {
 }
 .navbar-search .search-input { width: 100%; }
 
-/* Right nav links */
+
 .nav-links { display: flex; align-items: center; gap: 22px; margin-left: auto; }
 
-/* Search input */
 .search-input {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.03);
@@ -89,7 +88,6 @@ body {
     outline: none;
 }
 
-/* Search button */
 .icon-btn {
     margin-left: .5rem;
     padding: .45rem .65rem;
@@ -104,7 +102,7 @@ body {
     justify-content: center;
 }
 
-/* Nav link style */
+
 .nav-link {
     color: var(--text-strong);
     font-weight: 500;
@@ -116,14 +114,13 @@ body {
 .nav-link:hover, .nav-link:focus { color: var(--accent-teal); transform: translateY(-2px); outline: none; }
 .nav-link.active { color: var(--accent-teal); }
 
-/* Mobile search bar (hidden until toggled) */
 .mobile-search-bar {
     display: none;
     width: 100%;
     padding: 8px 0;
-    background: var(--bg-dark-1); /* Use a darker background for mobile search */
+    background: var(--bg-dark-1); 
     border-bottom: 1px solid rgba(255,255,255,0.02);
-    position: fixed; /* Fix to top when visible */
+    position: fixed; 
     top: 0;
     left: 0;
     z-index: 1030;
@@ -152,10 +149,8 @@ body {
     cursor: pointer;
 }
 
-/* make visible when toggled */
 .mobile-search-bar.visible { display:block; }
 
-/* HERO / TASK PANEL */
 .hero-section { margin: 22px 0; width: 100%; }
 .hero-panel {
     padding: 16px;
@@ -167,7 +162,6 @@ body {
 }
 .hero-title { text-align:center; font-size: clamp(1.1rem, 2.2vw, 1.8rem); color: var(--text-strong); margin:0 0 10px; }
 
-/* Task controls & list */
 .task-controls {
     display: flex;
     gap: 10px;
@@ -208,7 +202,6 @@ body {
 .btn-remove:hover { background: rgba(255,123,123,0.06); transform: translateY(-2px); }
 .task-list:empty::before { content:"No tasks yet — add your first task"; color: rgba(159,176,173,0.7); text-align:center; display:block; padding:18px; font-style: italic; }
 
-/* Footer */
 .footer { margin-top:26px; padding:20px; border-radius:10px; background: linear-gradient(180deg, rgba(6,16,17,0.6), rgba(8,18,19,0.5)); border:1px solid rgba(255,255,255,0.02); box-shadow: var(--shadow-soft); color:var(--muted); }
 .footer-grid { display:flex; gap:18px; justify-content:space-between; flex-wrap:wrap; }
 .footer-block { flex:1; min-width:200px; margin-bottom:8px; }
@@ -219,15 +212,12 @@ body {
 .plain-list a:hover { text-decoration: underline; }
 .copyright { text-align: center; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.02); }
 
-/* Responsive */
-
-/* tiny phones (Max-width: 575.98px) */
 @media (max-width: 575.98px) {
     .mobile-search { display:inline-flex !important; }       /* show the small search icon in nav */
     .navbar { padding: .4rem 0; }
     .navbar-brand { margin-right: 8px; }
     .collapse.navbar-collapse { flex-direction: column; align-items: stretch; gap: 10px; }
-    /* navbar-search is hidden via d-none d-lg-flex in HTML */
+
     .nav-links { flex-direction: column; align-items: flex-start; margin-left: 0; gap: 8px; }
     .task-controls { flex-direction: column; align-items: stretch; }
     .btn-accent { width: 100%; padding: 12px; }
@@ -240,7 +230,7 @@ body {
     .footer-block { min-width: auto; }
 }
 
-/* tablet (Min-width: 576px and Max-width: 991.98px) */
+
 @media (min-width: 576px) and (max-width: 991.98px) {
     .navbar-search { max-width: 520px; display:flex; }
     .task-input { flex: 1 1 360px; }
@@ -248,7 +238,6 @@ body {
     .nav-links { gap: 16px; }
 }
 
-/* desktop (Min-width: 992px) */
 @media (min-width: 992px) {
     .navbar-search { max-width: 640px; display:flex !important; }
     .task-input { flex: 1 1 640px; }
