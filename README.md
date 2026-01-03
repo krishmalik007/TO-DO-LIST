@@ -84,7 +84,6 @@ project/
 ├── todolist.css
 └── todolist.js
 ├── contactData.json   
-│
 └── README.md
 ```
 
