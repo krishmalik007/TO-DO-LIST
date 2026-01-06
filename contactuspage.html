@@ -154,7 +154,7 @@
 
 
     <script>
-        function validateForm(){
+    function validateForm(){
             let fn = document.getElementById('fname').value.trim();
             let em = document.getElementById('email').value.trim();
             let msg = document.getElementById('subject').value.trim();
@@ -175,8 +175,8 @@
             return false;
         }
    
-document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+ e.preventDefault();
 
     let name = document.getElementById('fname').value.trim();
     let email = document.getElementById('email').value.trim();
